@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "../angular-recipe-book/node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "../angular-recipe-book-redux/node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": []
