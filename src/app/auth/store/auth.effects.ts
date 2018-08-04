@@ -39,18 +39,19 @@ export class AuthEffects {
     @Effect()
     authSingin = this.actions$
     .ofType(AuthAction.TRY_SIGNIN)
-    .pipe( map( (action: AuthAction.TrySignup) => { // getting just the payload of the triggered action from the observable
+    .pipe(
+      map( (action: AuthAction.TrySignup) => { // getting just the payload of the triggered action from the observable
       return action.payload;
-    }))
-    .pipe( switchMap( ( authData: { username: string, password: string } ) => {
+    })
+    , switchMap( ( authData: { username: string, password: string } ) => {
       // using switchMap so inside the passed observable, we invoke a function which also returns an observable
       return from(firebase.auth().signInWithEmailAndPassword(authData.username, authData.password));
       // passing down the observable that the inner function returns,  by switchng it with the outer observable
-    }))
-    .pipe( switchMap( () => { // again switching the outer observable with the observable from the function we call inside it
+    })
+    , switchMap( () => { // again switching the outer observable with the observable from the function we call inside it
       return from(firebase.auth().currentUser.getIdToken());
-    }))
-    .pipe( mergeMap( (token: string) => { // now switching the outer observable with multiple observable we want to return
+    })
+    , mergeMap( (token: string) => { // now switching the outer observable with multiple observable we want to return
       this.router.navigate(['/recipes']);
       return [
         { type: AuthAction.SIGNIN },
@@ -64,10 +65,11 @@ export class AuthEffects {
     @Effect({ dispatch: false })
     authLogout = this.actions$
     .ofType(AuthAction.LOGOUT)
-    .pipe( switchMap( () => {
+    .pipe(
+      switchMap( () => {
       return from(firebase.auth().signOut());
-    }))
-    .pipe( tap( () => {
+    })
+    , tap( () => {
       this.router.navigate(['/']);
     }));
 
