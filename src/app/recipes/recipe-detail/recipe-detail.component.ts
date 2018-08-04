@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-import * as fromApp from '../../store/app.reducers';
 import * as fromRecipe from '../../recipes/store/recipe.reducers';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import * as RecipeActions from '../store/recipe.actions';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -47,7 +46,7 @@ export class RecipeDetailComponent implements OnInit {
 
   onDeleteRecipe() {
    // if (this.authService.isAuthenticated()) {
-      this.recipeService.deleteRecipe(this.id);
+      this.store.dispatch(new RecipeActions.DeleteRecipe(this.id));
       this.router.navigate(['/recipes']);
    // } else {
   //    this.router.navigate(['/signin']);

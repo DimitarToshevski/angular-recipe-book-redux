@@ -62,10 +62,10 @@ export function recipeReducer(state = initialState, action: RecipeActions.Recipe
 
       case RecipeActions.DELETE_RECIPE:
         const oldRecipes = [...state.recipes]; // getting a copy of the old recipes array
-        const updatedRecipes = oldRecipes.splice(action.payload, 1);
+         oldRecipes.splice(action.payload, 1);
         return {
           ...state,
-          recipes: updatedRecipes
+          recipes: oldRecipes
         };
 
       default:
