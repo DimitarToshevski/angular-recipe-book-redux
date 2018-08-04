@@ -41,11 +41,11 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    if (this.authService.isAuthenticated()) {
+   // if (this.authService.isAuthenticated()) {
       this.recipeService.deleteRecipe(this.id);
       this.router.navigate(['/recipes']);
-    } else {
-      this.router.navigate(['/signin']);
-    }
+   // } else {
+  //    this.router.navigate(['/signin']);
+  //  }
   }
 }
