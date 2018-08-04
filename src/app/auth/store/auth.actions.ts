@@ -5,11 +5,11 @@ export const SIGNIN = 'SIGNIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_TOKEN = 'SET_TOKEN';
 
-export class SignUp implements Action {
+export class Signup implements Action {
   readonly type = SIGNUP;
 }
 
-export class SignIn implements Action {
+export class Signin implements Action {
   readonly type = SIGNIN;
 }
 
@@ -22,4 +22,4 @@ export class SetToken implements Action {
   constructor (public payload: string) {}
 }
 
-export type AuthActions = SignUp | SignIn | Logout | SetToken;
+export type AuthActions = Signup | Signin | Logout | SetToken;
