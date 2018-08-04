@@ -15,18 +15,19 @@ export class AuthEffects {
   // otherwise we put @Effect({dispatch: false}) if we dont want to change state
   authSignup = this.actions$ // checking all of the actions provided by all of the rxjs stores in our app
     .ofType(AuthAction.TRY_SIGNUP) // if anywhere in our app a TRY_SIGNUP action is triggered the code below will execute
-    .pipe( map( (action: AuthAction.TrySignup) => { // getting just the payload of the triggered action from the observable
+    .pipe(
+      map( (action: AuthAction.TrySignup) => { // getting just the payload of the triggered action from the observable
       return action.payload;
-    }))
-    .pipe( switchMap( ( authData: { username: string, password: string } ) => {
+    })
+    , switchMap( ( authData: { username: string, password: string } ) => {
       // using switchMap so inside the passed observable, we invoke a function which also returns an observable
       return from(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password));
       // passing down the observable that the inner function returns,  by switchng it with the outer observable
-    }))
-    .pipe( switchMap( () => { // again switching the outer observable with the observable from the function we call inside it
+    })
+    , switchMap( () => { // again switching the outer observable with the observable from the function we call inside it
       return from(firebase.auth().currentUser.getIdToken());
-    }))
-    .pipe( mergeMap( (token: string) => { // now switching the outer observable with multiple observable we want to return
+    })
+    , mergeMap( (token: string) => { // now switching the outer observable with multiple observable we want to return
       return [
         { type: AuthAction.SIGNUP },
         {

@@ -26,7 +26,7 @@ import { AuthEffects } from './auth/store/auth.effects';
   imports: [
     AuthModule,
     AppRoutingModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'angular-recipe-book-redux'}),
     CoreModule,
     FormsModule,
     HttpClientModule,
